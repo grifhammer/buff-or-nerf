@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.main-div{
+    margin-top: 10px;
+    text-align: center;
+}
+
+img{
+    width: 351px;
+}

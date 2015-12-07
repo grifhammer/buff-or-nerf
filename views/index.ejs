@@ -1,16 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
+
+<% include head %>
+
 <body>
-    Here is the body!
-    <%= "print me" %>
-    <% 
-        var name = 'griffin';
-        if(name == 'griffin') {
+    <header>
+        <% include header %>
+    </header>
+    <%
+    for(i = 0; i<heroes.length; i++){
     %>
-    Griffin
-    <% } %>
+    <div class="main-div">
+        <img src="<%=heroes[i].img%>">
+        <div class="voting-buttons">
+            <h2 class="btn btn-lg btn-success">Buff!</h2>
+            <h2 class="btn btn-lg btn-danger">Nerf!</h2>
+        </div>
+    </div>
+    <%
+    }
+    %>
+    <footer><% include footer %></footer>
 </body>
 </html>

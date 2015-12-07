@@ -8,8 +8,10 @@ var mongoClient = require('mongodb').MongoClient;
 router.get('/', function(req, res, next) {
 
     mongoClient.connect('mongodb://localhost:27017/buffornerf', function(error, db){
-        db.collection('teams').find().toArray(function (error, result){
-            console.log(result);
+        db.collection('heroes').find().toArray(function (error, result){
+            var num_heroes = result.length;
+            var heroes = result;
+            res.render('index', { title: 'Electric?', heroes: heroes });
         });
     });
 
@@ -21,7 +23,12 @@ router.get('/', function(req, res, next) {
     //5. choose random item from the array and set it to a var
     //6. res.render() the index view and send it the photo
 
-    res.render('index', { title: 'Express' });
+
+
+
+    
+
+    
   //1. get ALL items
   //2. Sort them by highest likes
   //3. res.resnder the standings view and pass it the sorted photo array
@@ -34,7 +41,8 @@ router.get('/standings', function(req, res, next){
 
 router.post('*', function (req, res, next){
     //This will run for all posted pages
-    
+
 });
 
 module.exports = router;
+
