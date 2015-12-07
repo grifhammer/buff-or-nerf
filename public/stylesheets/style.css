@@ -12,6 +12,10 @@ a {
     text-align: center;
 }
 
+.voting-buttons{
+    margin-bottom: 10px;
+}
+
 img{
     width: 351px;
 }

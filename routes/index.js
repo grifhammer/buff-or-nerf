@@ -9,8 +9,11 @@ router.get('/', function(req, res, next) {
 
     mongoClient.connect('mongodb://localhost:27017/buffornerf', function(error, db){
         db.collection('heroes').find().toArray(function (error, result){
-            var num_heroes = result.length;
-            var heroes = result;
+            var numHeroes = result.length;
+            var thisIndex = Math.floor(Math.random() * numHeroes)
+            console.log(thisIndex)
+            var heroes = result[thisIndex];
+            console.log(heroes)
             res.render('index', { title: 'Electric?', heroes: heroes });
         });
     });
