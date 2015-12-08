@@ -35,17 +35,41 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/standings', function(req, res, next){
-
+    mongoClient.connect('mongodb://localhost:27017/buffornerf', function (error, db){
+        db.collection('users').find().toArray(function (error, result){
+            var userVotes = result;
+            var voteCount = [];
+            for(var userIndex = 0; userIndex < userVotes.length; userIndex++){
+                var userVote = userVotes[userIndex];
+                if(userVote.vote === "buff"){
+                    if(voteCount[userVote.hero]){
+                        voteCount[userVote.hero]++;
+                    }
+                    else{
+                        voteCount[userVote.hero] = 1;
+                    }
+                }else if(userVote.vote === "nerf"){
+                    if(voteCount[userVote.hero]){
+                        voteCount[userVote.hero]--;
+                    }
+                    else{
+                        voteCount[userVote.hero] = -1
+                    }
+                }
+            }
+            console.log(voteCount);
+        });
+    });
     //1. get ALL items
     //2. Sort them by highest likes
     //3. res.resnder the standings view and pass it the sorted photo array
-    res.render('index', {title: 'Standings'});
+    res.render('standing', {heroes: [ {"localized_name": "axe", "img": "words.jpg"}, {"localized_name": "antimage", "img": "things.jpg" } ] });
+
 });
 
 function addVote(voteVal, req){
-    var heroId = req.body.heroId;
-    console.log(heroId)
-    mongoClient.connect('mongodb://localhost:27017/buffornerf', function(error, db){
+    var heroId = parseInt(req.body.heroId);
+    mongoClient.connect('mongodb://localhost:27017/buffornerf', function (error, db){
         db.collection('users').insertOne( {
             ip: req.ip,
             vote: voteVal,

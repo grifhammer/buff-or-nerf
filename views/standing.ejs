@@ -1,0 +1,17 @@
+
+<% include head %>
+
+<body>
+    <header>
+        <% include header %>
+    </header>
+    <div class="main-div">
+        <% for(var i = 0; i < heroes.length; i++){ 
+            hero = heroes[i]%>
+        <img src="<%=hero.img%>">
+        <h2><%= hero.localized_name %></h2>
+        <% } %>
+    </div>
+    <footer><% include footer %></footer>
+</body>
+</html>
