@@ -15,17 +15,21 @@ router.get('/', function (req, res, next) {
 
     mongoClient.connect('mongodb://localhost:27017/buffornerf', function(error, db){
         //1. Get all items from mongoDB
-        db.collection('heroes').find().toArray(function (error, result){
-            db.collection('users').find({'ip': req.ip}).toArray(function (error, result){
-
+        db.collection('users').find({'ip': req.ip}).toArray(function (error, result){
+            var previousVotes = result
+            var previousVoteIds = []
+            for(var resultIndex = 0; resultIndex < previousVotes.length; resultIndex++){
+                previousVoteIds.push(parseInt(previousVotes[resultIndex].hero));
+            }
+            db.collection('heroes').find({'id': { $nin: previousVoteIds} }).toArray(function (error, result){
+                var numHeroes = result.length;
+                //5. choose random item from the array and set it to a var
+                var thisIndex = Math.floor(Math.random() * numHeroes)
+                //4. load all of the items from 3 to an array
+                var heroes = result;
+                //6. res.render() the index view and send it the photo
+                res.render('index', {heroes: heroes[thisIndex] });
             });
-            var numHeroes = result.length;
-            //5. choose random item from the array and set it to a var
-            var thisIndex = Math.floor(Math.random() * numHeroes)
-            //4. load all of the items from 3 to an array
-            var heroes = result;
-            //6. res.render() the index view and send it the photo
-            res.render('index', {heroes: heroes[thisIndex] });
         });
     });
 });
@@ -40,6 +44,7 @@ router.get('/standings', function(req, res, next){
 
 function addVote(voteVal, req){
     var heroId = req.body.heroId;
+    console.log(heroId)
     mongoClient.connect('mongodb://localhost:27017/buffornerf', function(error, db){
         db.collection('users').insertOne( {
             ip: req.ip,
