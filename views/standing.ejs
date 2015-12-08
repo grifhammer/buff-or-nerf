@@ -10,6 +10,7 @@
             hero = heroes[i]%>
         <img src="<%=hero.img%>">
         <h2><%= hero.localized_name %></h2>
+        <h2>Votes: <%= votes[hero.id] %></h2>
         <% } %>
     </div>
     <footer><% include footer %></footer>

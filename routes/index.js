@@ -22,7 +22,6 @@ router.get('/', function (req, res, next) {
                 previousVoteIds.push(parseInt(previousVotes[resultIndex].hero));
             }
             db.collection('heroes').find({'id': { $nin: previousVoteIds} }).toArray(function (error, result){
-                console.log(result.length);
                 if(result.length == 0){
                     res.render('thanks');
                 }
@@ -46,14 +45,18 @@ router.get('/standings', function(req, res, next){
             var voteCount = [];
             for(var userIndex = 0; userIndex < userVotes.length; userIndex++){
                 var userVote = userVotes[userIndex];
+                // if current vote is to buff add one
                 if(userVote.vote === "buff"){
+                    // double check that the value has been initialized before incrementing
                     if(voteCount[userVote.hero]){
                         voteCount[userVote.hero]++;
                     }
                     else{
                         voteCount[userVote.hero] = 1;
                     }
+                // else if its a vote for nerf subtract one
                 }else if(userVote.vote === "nerf"){
+                    // double check that the value has been initialized before incrementing
                     if(voteCount[userVote.hero]){
                         voteCount[userVote.hero]--;
                     }
@@ -62,11 +65,25 @@ router.get('/standings', function(req, res, next){
                     }
                 }
             }
-            console.log(voteCount);
             db.collection('heroes').find().toArray(function (error, result){
+
+                //sort the heroes array based on their vote count totals
                 result.sort( function(a, b){
                     if(voteCount[a.id] && voteCount[b.id]){
-                        return voteCount[b.id] - voteCount[a.id]
+                        if(voteCount[a.id] == voteCount[b.id]){
+                            if(a.name < b.name){
+                                return -1;
+                            }
+                            else if(b.name < a.name){
+                                return 1;
+                            }
+                            else {
+                                return voteCount[b.id] - voteCount[a.id];
+                            }
+                        }
+                        else{
+                            return voteCount[b.id] - voteCount[a.id];
+                        }
                     }
                     else if(voteCount[a.id]){
                         return -1;
@@ -78,7 +95,7 @@ router.get('/standings', function(req, res, next){
                         return 0;
                     }
                 });
-                res.render('standing', {heroes: result});
+                res.render('standing', {heroes: result, votes: voteCount});
             });
         });
     });
