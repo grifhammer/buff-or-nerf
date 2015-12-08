@@ -22,6 +22,10 @@ router.get('/', function (req, res, next) {
                 previousVoteIds.push(parseInt(previousVotes[resultIndex].hero));
             }
             db.collection('heroes').find({'id': { $nin: previousVoteIds} }).toArray(function (error, result){
+                console.log(result.length);
+                if(result.length == 0){
+                    res.render('thanks');
+                }
                 var numHeroes = result.length;
                 //5. choose random item from the array and set it to a var
                 var thisIndex = Math.floor(Math.random() * numHeroes)
@@ -37,6 +41,7 @@ router.get('/', function (req, res, next) {
 router.get('/standings', function(req, res, next){
     mongoClient.connect('mongodb://localhost:27017/buffornerf', function (error, db){
         db.collection('users').find().toArray(function (error, result){
+            
             var userVotes = result;
             var voteCount = [];
             for(var userIndex = 0; userIndex < userVotes.length; userIndex++){
@@ -58,13 +63,28 @@ router.get('/standings', function(req, res, next){
                 }
             }
             console.log(voteCount);
+            db.collection('heroes').find().toArray(function (error, result){
+                result.sort( function(a, b){
+                    if(voteCount[a.id] && voteCount[b.id]){
+                        return voteCount[b.id] - voteCount[a.id]
+                    }
+                    else if(voteCount[a.id]){
+                        return -1;
+                    }
+                    else if(voteCount[b.id]){
+                        return 1;
+                    }
+                    else{
+                        return 0;
+                    }
+                });
+                res.render('standing', {heroes: result});
+            });
         });
     });
     //1. get ALL items
     //2. Sort them by highest likes
     //3. res.resnder the standings view and pass it the sorted photo array
-    res.render('standing', {heroes: [ {"localized_name": "axe", "img": "words.jpg"}, {"localized_name": "antimage", "img": "things.jpg" } ] });
-
 });
 
 function addVote(voteVal, req){
