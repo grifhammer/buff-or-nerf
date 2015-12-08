@@ -6,7 +6,17 @@ body {
 a {
   color: #00B7FF;
 }
+.buff{
+    color: green;
+}
 
+.balanced{
+    color: blue;
+}
+
+.nerf{
+    color: red;
+}
 .main-div{
     margin-top: 10px;
     text-align: center;

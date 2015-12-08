@@ -13,7 +13,10 @@
                 <input type="hidden" name="heroId" value="<%=heroes.id %>" />
                 <input type="submit" class="btn btn-lg btn-success" value="Buff!">
             </form>
-            <span class="middle-text">OR</span>
+            <form class="vote-button" action="./balanced" method="post">
+                <input type="hidden" name="heroId" value="<%=heroes.id %>" />
+                <input type="submit" class="btn btn-lg btn-primary" value="Balanced!">
+            </form>
             <form class="vote-button" action="./nerf" method="post">
                 <input type="hidden" name="heroId" value="<%=heroes.id %>" />
                 <input type="submit" class="btn btn-lg btn-danger" value="Nerf!">

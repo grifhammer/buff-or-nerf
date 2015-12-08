@@ -63,6 +63,12 @@ router.get('/standings', function(req, res, next){
                     else{
                         voteCount[userVote.hero] = -1
                     }
+                }else if(userVote.vote === "balanced"){
+                    if(voteCount[userVote.hero]){
+                        //Do nothing since the hero is balanced
+                    }else{
+                        voteCount[userVote.hero] = 0
+                    }
                 }
             }
             db.collection('heroes').find().toArray(function (error, result){
@@ -119,6 +125,11 @@ router.post('/buff', function (req, res, next){
     addVote('buff', req);
     res.redirect('../');
 });
+
+router.post('/balanced', function (req, res, next){
+    addVote('balanced', req);
+    res.redirect('../')
+})
 
 router.post('/nerf', function (req, res, next){
     addVote('nerf', req);

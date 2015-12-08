@@ -8,9 +8,16 @@
     <div class="main-div">
         <% for(var i = 0; i < heroes.length; i++){ 
             hero = heroes[i]%>
-        <img src="<%=hero.img%>">
-        <h2><%= hero.localized_name %></h2>
-        <h2>Votes: <%= votes[hero.id] %></h2>
+            <img src="<%=hero.img%>">
+            <h2><%= hero.localized_name %></h2>
+            <% if(votes[hero.id] > 0){ %>
+                <h2 class="buff">Buff Score: <%= votes[hero.id] %></h2>
+            <%  }
+                else if(votes[hero.id] < 0){ %>
+                <h2 class="nerf">Nerf Score: <%= votes[hero.id] %></h2>
+            <%  }else{ %>
+                <h2 class="balanced">BALANCED! Net Score: <%= votes[hero.id] %></h2>
+            <%  } %>
         <% } %>
     </div>
     <footer><% include footer %></footer>
