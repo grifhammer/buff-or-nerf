@@ -38,34 +38,25 @@ router.get('/standings', function(req, res, next){
     res.render('index', {title: 'Standings'});
 });
 
-router.post('/buff', function (req, res, next){
+function addVote(voteVal, req){
     var heroId = req.body.heroId;
-    var updatedBuffVotes = req.body.buffVotes + 1;
     mongoClient.connect('mongodb://localhost:27017/buffornerf', function(error, db){
         db.collection('users').insertOne( {
             ip: req.ip,
-            vote: "buff",
+            vote: voteVal,
             hero: heroId
         });
-        res.redirect('../');
     });
-    //This will run for all posted pages
+}
 
+router.post('/buff', function (req, res, next){
+    addVote('buff', req);
+    res.redirect('../');
 });
 
 router.post('/nerf', function (req, res, next){
-    var heroId = req.body.heroId;
-    var updatedBuffVotes = req.body.buffVotes + 1;
-    mongoClient.connect('mongodb://localhost:27017/buffornerf', function(error, db){
-        db.collection('users').insertOne( {
-            ip: req.ip,
-            vote: "nerf",
-            hero: heroId
-        });
-        res.redirect('../');
-    });
-    //This will run for all posted pages
-
+    addVote('nerf', req);
+    res.redirect('../');
 });
 
 module.exports = router;
