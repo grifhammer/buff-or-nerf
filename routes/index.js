@@ -11,10 +11,8 @@ router.get('/', function(req, res, next) {
         db.collection('heroes').find().toArray(function (error, result){
             var numHeroes = result.length;
             var thisIndex = Math.floor(Math.random() * numHeroes)
-            console.log(thisIndex)
             var heroes = result[thisIndex];
-            console.log(heroes)
-            res.render('index', { title: 'Electric?', heroes: heroes });
+            res.render('index', {heroes: heroes });
         });
     });
 
