@@ -5,7 +5,7 @@ var router = express.Router();
 var mongoClient = require('mongodb').MongoClient;
 var db;
 
-var mainDbUrl = PROD_MONGODB
+var mainDbUrl = process.env.PROD_MONGODB
 
 
 mongoClient.connect(mainDbUrl, function(error, database){
