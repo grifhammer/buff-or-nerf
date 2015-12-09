@@ -122,13 +122,15 @@ function addVote(voteVal, req){
     var heroId = parseInt(req.body.heroId);
     var ipAddr = getIp(req);
     console.log(db.collection('users').find({ip: ipAddr, hero: heroId}).count())
-    if( db.collection('users').find({ip: ipAddr, hero: heroId}).count() == 0 ){
-        db.collection('users').insertOne( {
-            ip: ipAddr,
-            vote: voteVal,
-            hero: heroId
-        });
-    }
+    db.collection('users').find({ip: ipAddr, hero: heroId}).toArray(function (error, result){
+        if(result.length == 0){}
+            db.collection('users').insertOne( {
+                ip: ipAddr,
+                vote: voteVal,
+                hero: heroId
+            });
+        }
+    });
 }
 
 
