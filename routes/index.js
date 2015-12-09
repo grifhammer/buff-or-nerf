@@ -76,7 +76,7 @@ router.get('/standings', function(req, res, next){
 
             //sort the heroes array based on their vote count totals
             result.sort( function(a, b){
-                if(voteCount[a.id] && voteCount[b.id]){
+                if(voteCount[a.id] != null && voteCount[b.id] != null){
                     if(voteCount[a.id] == voteCount[b.id]){
                         if(a.name < b.name){
                             return -1;
@@ -85,10 +85,10 @@ router.get('/standings', function(req, res, next){
                             return 1;
                         }
                         else {
-                            return voteCount[b.id] - voteCount[a.id];
+                            return 0;
                         }
                     }
-                    else{
+                    else{    
                         return voteCount[b.id] - voteCount[a.id];
                     }
                 }
@@ -99,7 +99,12 @@ router.get('/standings', function(req, res, next){
                     return 1;
                 }
                 else{
-                    return 0;
+                    if(a.name < b.name){
+                        return -1;
+                    }
+                    else if(b.name < a.name){
+                        return 1;
+                    }
                 }
             });
             res.render('standing', {heroes: result, votes: voteCount});
