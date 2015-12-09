@@ -136,6 +136,14 @@ router.post('/nerf', function (req, res, next){
     res.redirect('../');
 });
 
+router.post('/new_user', function (req, res, next){
+    var date = new Date();
+    console.log(date.valueOf());
+    var newIP = req.ip + date.valueOf();
+    db.collection('users').update({ip: req.ip}, {$set: {ip: newIP}}, {multi: true})
+    res.redirect('../')
+});
+
 router.post('*', function (req, res, next){
     console.log("Wildcard Post Ran")
     res.redirect('../');
