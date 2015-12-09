@@ -8,6 +8,8 @@ var db;
 var mainDbUrl = process.env.PROD_MONGODB
 
 
+ 
+
 mongoClient.connect(mainDbUrl, function(error, database){
     db = database;
 });
@@ -18,8 +20,8 @@ router.get('/', function (req, res, next) {
     //index page should load random item
     //2. Get current user from mongoDB via req.ip
     //3. Find photos user hasnt voted on
-
-    db.collection('users').find({'ip': req.ip}).toArray(function (error, result){
+    var ipAddr = getIp(req);
+    db.collection('users').find({'ip': ipAddr}).toArray(function (error, result){
         var previousVotes = result
         var previousVoteIds = []
         for(var resultIndex = 0; resultIndex < previousVotes.length; resultIndex++){
@@ -118,13 +120,25 @@ router.get('/standings', function(req, res, next){
 
 function addVote(voteVal, req){
     var heroId = parseInt(req.body.heroId);
+    var ipAddr = getIp(req);
     db.collection('users').insertOne( {
-        ip: req.ip,
+        ip: ipAddr,
         vote: voteVal,
         hero: heroId
     });
 }
 
+
+function getIp(req){
+    var ipAddr = req.headers["x-forwarded-for"];
+    if (ipAddr){
+        var list = ipAddr.split(",");
+        ipAddr = list[list.length-1];
+    } else {
+        ipAddr = req.connection.remoteAddress;
+    }
+    return ipAddr;
+}
 
 
 router.post('/buff', function (req, res, next){
@@ -145,8 +159,9 @@ router.post('/nerf', function (req, res, next){
 router.post('/new_user', function (req, res, next){
     var date = new Date();
     console.log(date.valueOf());
-    var newIP = req.ip + date.valueOf();
-    db.collection('users').update({ip: req.ip}, {$set: {ip: newIP}}, {multi: true})
+    var ipAddr = getIp(req);
+    var newIP = ipAddr + date.valueOf();
+    db.collection('users').update({ip: ipAddr}, {$set: {ip: newIP}}, {multi: true})
     res.redirect('../')
 });
 
