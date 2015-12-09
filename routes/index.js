@@ -121,11 +121,13 @@ router.get('/standings', function(req, res, next){
 function addVote(voteVal, req){
     var heroId = parseInt(req.body.heroId);
     var ipAddr = getIp(req);
-    db.collection('users').insertOne( {
-        ip: ipAddr,
-        vote: voteVal,
-        hero: heroId
-    });
+    if( db.collection('users').find({ip: ipAddr, hero: heroId}).count() == 0 ){
+        db.collection('users').insertOne( {
+            ip: ipAddr,
+            vote: voteVal,
+            hero: heroId
+        });
+    }
 }
 
 
