@@ -5,7 +5,8 @@ var router = express.Router();
 var mongoClient = require('mongodb').MongoClient;
 var db;
 
-var mainDbUrl = 'mongodb://localhost:27017/buffornerf'
+var mainDbUrl = PROD_MONGODB
+
 
 mongoClient.connect(mainDbUrl, function(error, database){
     db = database;
