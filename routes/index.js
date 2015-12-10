@@ -5,10 +5,13 @@ var router = express.Router();
 var mongoClient = require('mongodb').MongoClient;
 var db;
 
-var mainDbUrl = process.env.PROD_MONGODB
+var mainDbUrl;
+if(process.env.PROD_MONGODB){
+    mainDbUrl = process.env.PROD_MONGODB;
+}else{
+    mainDbUrl = 'mongodb://localhost:27017/buffornerf'
+}
 
-
- 
 
 mongoClient.connect(mainDbUrl, function(error, database){
     db = database;
