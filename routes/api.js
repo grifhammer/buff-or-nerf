@@ -12,6 +12,16 @@ if(process.env.PROD_MONGODB){
 mongoose.connect(mainDbUrl);
 var Hero = require('../models/heroes');
 
+router.get('/heroes/get', function (req, res, next){
+    Hero.find(function(err, heroesResult){
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.json(heroesResult);
+        }
+    });
+});
 
 module.exports = router;
 
