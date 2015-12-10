@@ -15,7 +15,10 @@
             <%  }
                 else if(votes[hero.id] < 0){ %>
                 <h2 class="nerf">Nerf Score: <%= votes[hero.id] %></h2>
-            <%  }else{ %>
+            <%  }else{ 
+                    if(!votes[hero.id]){
+                        votes[hero.id] = 0
+                    } %>
                 <h2 class="balanced">BALANCED! Net Score: <%= votes[hero.id] %></h2>
             <%  } %>
         <% } %>
