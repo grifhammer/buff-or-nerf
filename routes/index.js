@@ -121,6 +121,9 @@ router.get('/standings', function(req, res, next){
     //3. res.resnder the standings view and pass it the sorted photo array
 });
 
+function heroVoteSort(a, b){ 
+}
+
 function addVote(voteVal, req){
     var heroId = parseInt(req.body.heroId);
     var ipAddr = getIp(req);
@@ -131,6 +134,10 @@ function addVote(voteVal, req){
                 vote: voteVal,
                 hero: heroId
             });
+            var changeObj = {};
+            var voteType = voteVal + 'Votes';
+            changeObj[voteType] = 1;
+            db.collection('heroes').update({id: heroId}, {$inc: changeObj});
         }
     });
 }
