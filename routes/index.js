@@ -124,10 +124,10 @@ router.get('/standings', function(req, res, next){
 function addVote(voteVal, req){
     var heroId = parseInt(req.body.heroId);
     var ipAddr = getIp(req);
-    db.collection('users').find({ip: ipAddr, hero: heroId}).toArray(function (error, result){
+    db.collection('users').find({id: ipAddr, hero: heroId}).toArray(function (error, result){
         if(result.length == 0){
             db.collection('users').insertOne( {
-                ip: ipAddr,
+                id: ipAddr,
                 vote: voteVal,
                 hero: heroId
             });
@@ -168,7 +168,7 @@ router.post('/new_user', function (req, res, next){
     console.log(date.valueOf());
     var ipAddr = getIp(req);
     var newIP = ipAddr + ":" + date.valueOf();
-    db.collection('users').update({ip: ipAddr}, {$set: {ip: newIP}}, {multi: true})
+    db.collection('users').update({id: ipAddr}, {$set: {id: newIP}}, {multi: true})
     res.redirect('../')
 });
 
