@@ -11,6 +11,19 @@ if(process.env.PROD_MONGODB){
 
 mongoose.connect(mainDbUrl);
 var Hero = require('../models/heroes');
+var User = require('../models/users')
+
+
+function getJSON(res, model){
+    model.find(function (err, result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.json(result);
+        }
+    });
+}
 
 router.get('/heroes/get', function (req, res, next){
     Hero.find(function(err, heroesResult){
@@ -21,6 +34,17 @@ router.get('/heroes/get', function (req, res, next){
             res.json(heroesResult);
         }
     });
+});
+
+router.get('/users/get', function (req, res, next){
+    User.find(function (err, usersResult){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.json(usersResult);
+        }
+    })
 });
 
 module.exports = router;
