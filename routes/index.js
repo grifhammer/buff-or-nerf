@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
     //2. Get current user from mongoDB via req.ip
     //3. Find photos user hasnt voted on
     var ipAddr = getIp(req);
-    db.collection('users').find({'ip': ipAddr}).toArray(function (error, result){
+    db.collection('users').find({id: ipAddr}).toArray(function (error, result){
         var previousVotes = result
         var previousVoteIds = []
         for(var resultIndex = 0; resultIndex < previousVotes.length; resultIndex++){
