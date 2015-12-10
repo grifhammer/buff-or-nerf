@@ -28,7 +28,7 @@ a {
     margin-bottom: 10px;
     width: 350px;
     overflow: hidden;
-    margin: auto;
+    margin: auto auto 10px;
 
 }
 
