@@ -167,7 +167,7 @@ router.post('/new_user', function (req, res, next){
     var date = new Date();
     console.log(date.valueOf());
     var ipAddr = getIp(req);
-    var newIP = ipAddr + date.valueOf();
+    var newIP = ipAddr + ":" + date.valueOf();
     db.collection('users').update({ip: ipAddr}, {$set: {ip: newIP}}, {multi: true})
     res.redirect('../')
 });
