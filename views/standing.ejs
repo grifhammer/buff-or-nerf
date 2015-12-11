@@ -10,16 +10,16 @@
             hero = heroes[i]%>
             <img class="standing-img" src="<%=hero.img%>">
             <h2><%= hero.localized_name %></h2>
-            <% if(votes[hero.id] > 0){ %>
-                <h2 class="buff">Buff Score: <%= votes[hero.id] %></h2>
+            <% if(hero.totalVotes > 0){ %>
+                <h2 class="buff">Buff Score: <%= hero.totalVotes %></h2>
             <%  }
-                else if(votes[hero.id] < 0){ %>
-                <h2 class="nerf">Nerf Score: <%= votes[hero.id] %></h2>
+                else if(hero.totalVotes < 0){ %>
+                <h2 class="nerf">Nerf Score: <%= hero.totalVotes %></h2>
             <%  }else{ 
-                    if(!votes[hero.id]){
-                        votes[hero.id] = 0
+                    if(hero.totalVotes == null){
+                        hero.totalVotes = 0
                     } %>
-                <h2 class="balanced">BALANCED! Net Score: <%= votes[hero.id] %></h2>
+                <h2 class="balanced">BALANCED! Net Score: <%= hero.totalVotes %></h2>
             <%  } %>
         <% } %>
     </div>
