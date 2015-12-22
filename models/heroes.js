@@ -6,9 +6,10 @@ var Schema = mongoose.Schema;
 var heroSchema = new Schema({
     id: Number,
     localized_name: String,
-    imageBase: String,
-    buffVotes: Number,
-    nerfVotes: Number
+    img: String,
+    buffVotes: {type: Number, default: 0},
+    nerfVotes: {type: Number, default: 0},
+    totalVotes: {type:Number, default: 0}
 });
 
-module.exports = mongoose.model('heroes',heroSchema);
+module.exports = mongoose.model('heroes', heroSchema);

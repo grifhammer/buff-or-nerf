@@ -9,4 +9,4 @@ var usersSchema = new Schema({
     hero: Number
 });
 
-module.exports = mongoose.model('users',usersSchema);
+module.exports = mongoose.model('users', usersSchema);
