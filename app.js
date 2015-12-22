@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var schedule = require('node-schedule');
+var querystring = require('querystring');
+var https = require('https');
 var Schema = mongoose.Schema;
 if(!process.env.PROD_STEAM_KEY){
     var vars = require('../config/vars.json');
