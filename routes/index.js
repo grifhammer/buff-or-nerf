@@ -75,11 +75,12 @@ function heroVoteSort(heroA, heroB){
 function addVote(voteVal, req){
     var heroId = parseInt(req.body.heroId);
     var ipAddr = getIp(req);
-    User.findOneAndUpdate({id: ipAddr, hero: heroId}, {vote: voteVal}, {upsert: true, 'new': true}, function (error, result){
+    User.findOneAndUpdate({id: ipAddr, hero: heroId}, {vote: voteVal}, {upsert: true, 'new': false}, function (error, result){
         if(error){
             console.log(error);
         }else{
-            if(result){
+            console.log(result)
+            if(!result){
                 var changeObj = {};
                 var voteType = voteVal + 'Votes';
                 changeObj[voteType] = 1;
