@@ -78,10 +78,8 @@ function addVote(voteVal, req){
         if(error){
             console.log(error);
         }else{
-                console.log(result)
 
             if(result){
-                console.log(result)
                 var changeObj = {};
                 var voteType = voteVal + 'Votes';
                 changeObj[voteType] = 1;
@@ -93,7 +91,6 @@ function addVote(voteVal, req){
                     changeObj["totalVotes"] = 0;
                 }
                 Hero.findOneAndUpdate({id: heroId}, {$inc: changeObj}, {upsert: true, 'new': true}, function (error, result){
-                    console.log(result);
                 });
             }
         }
@@ -134,7 +131,6 @@ router.post('/nerf', function (req, res, next){
 
 router.post('/new_user', function (req, res, next){
     var date = new Date();
-    console.log(date.valueOf());
     var ipAddr = getIp(req);
     var newIP = ipAddr + ":" + date.valueOf();
     User.update({id: {$in: ipAddr}}, {$set: {id: newIP}}, {multi: true})
