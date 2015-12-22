@@ -151,6 +151,7 @@ function performRequest(endpoint, method, data, success){
             // console.log(imageName)
             hero.image = 'http://cdn.dota2.com/apps/dota2/images/heroes/' + imageName + '_'
             console.log(hero.image + 'vert.jpg')
+            
         });
     });
   });

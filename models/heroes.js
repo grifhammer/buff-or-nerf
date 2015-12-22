@@ -4,7 +4,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var heroSchema = new Schema({
-    image: String,
+    id: Number,
+    localized_name: String,
+    imageBase: String,
     buffVotes: Number,
     nerfVotes: Number
 });
