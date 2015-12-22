@@ -11,15 +11,15 @@
             <img class="standing-img" src="<%=hero.img + 'full.png'%>">
             <h2><%= hero.localized_name %></h2>
             <% if(hero.totalVotes > 0){ %>
-                <h2 class="buff">Buff Score: <%= hero.totalVotes %></h2>
+                <h2 class="buff">Buff! Score: <%= hero.totalVotes %></h2>
             <%  }
                 else if(hero.totalVotes < 0){ %>
-                <h2 class="nerf">Nerf Score: <%= hero.totalVotes %></h2>
+                <h2 class="nerf">Nerf! Score: <%= hero.totalVotes %></h2>
             <%  }else{ 
                     if(hero.totalVotes == null){
                         hero.totalVotes = 0
                     } %>
-                <h2 class="balanced">BALANCED! Net Score: <%= hero.totalVotes %></h2>
+                <h2 class="balanced">Balanced! Score: <%= hero.totalVotes %></h2>
             <%  } %>
         <% } %>
     </div>
