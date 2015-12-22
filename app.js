@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/api', apiRoutes);
 
-var Hero = require('../models/heroes')
+var Hero = require('./models/heroes')
 
 var mainDbUrl = process.env.PROD_MONGODB || 'mongodb://localhost:27017/buffornerf'
 var db = mongoose.createConnection(mainDbUrl);
