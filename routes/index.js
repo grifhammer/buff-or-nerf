@@ -1,4 +1,7 @@
 var express = require('express');
+var vars = require('../config/vars.json');
+var querystring = require('querystring');
+var https = require('https');
 var router = express.Router();
 
 
@@ -128,6 +131,38 @@ function getIp(req){
     }
     return ipAddr;
 }
+
+//Code to retrieve updated heroes list
+
+function performRequest(endpoint, method, data, success){
+  endpoint += '?' + querystring.stringify(data)
+  var steamAPI = 'https://api.steampowered.com/'
+  console.log('about to make request')
+  var req = https.get(steamAPI+endpoint, function (res){
+    res.on('data', function (data){
+        dataJSON = JSON.parse(data)
+        heroesArray = dataJSON.result.heroes;
+        heroesArray.map( function (hero){
+            // console.log(hero);
+            // console.log('Name: ' + hero.name);
+            // console.log('ID: ' + hero.id);
+            // console.log('Readable Name: ' + hero.localized_name);
+            imageName = hero.name.substr(14,hero.name.length-1);
+            // console.log(imageName)
+            hero.image = 'http://cdn.dota2.com/apps/dota2/images/heroes/' + imageName + '_'
+            console.log(hero.image + 'vert.jpg')
+        });
+    });
+  });
+}
+
+
+
+router.get('/update', function (req, res, next){
+    var heroEndpoint = "IEconDOTA2_570/GetHeroes/v0001/"
+    performRequest(heroEndpoint, 'GET', {key: vars.apiKey, language: 'en_us'})
+    res.redirect('/');
+});
 
 
 router.post('/buff', function (req, res, next){
