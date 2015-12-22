@@ -10,7 +10,7 @@ var querystring = require('querystring');
 var https = require('https');
 var Schema = mongoose.Schema;
 if(!process.env.PROD_STEAM_KEY){
-    var vars = require('../config/vars.json');
+    var vars = require('./config/vars.json');
 }
 var steamKey = process.env.PROD_STEAM_KEY || vars.apiKey
 
