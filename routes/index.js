@@ -136,8 +136,8 @@ router.post('/new_user', function (req, res, next){
     res.redirect('/')
 });
 
-router.post('*', function (req, res, next){
-    console.log("Wildcard Post Ran")
+router.all('*', function (req, res, next){
+    console.log("Wildcard Ran")
     res.redirect('/');
 })
 
