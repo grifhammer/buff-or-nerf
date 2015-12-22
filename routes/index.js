@@ -116,17 +116,17 @@ router.get('/thanks', function (req, res, next){
 
 router.post('/buff', function (req, res, next){
     addVote('buff', req);
-    res.redirect('./');
+    res.redirect('/');
 });
 
 router.post('/balanced', function (req, res, next){
     addVote('balanced', req);
-    res.redirect('./')
+    res.redirect('/')
 })
 
 router.post('/nerf', function (req, res, next){
     addVote('nerf', req);
-    res.redirect('./');
+    res.redirect('/');
 });
 
 router.post('/new_user', function (req, res, next){
@@ -134,12 +134,12 @@ router.post('/new_user', function (req, res, next){
     var ipAddr = getIp(req);
     var newIP = ipAddr + ":" + date.valueOf();
     User.update({id: {$in: ipAddr}}, {$set: {id: newIP}}, {multi: true})
-    res.redirect('./')
+    res.redirect('/')
 });
 
 router.post('*', function (req, res, next){
     console.log("Wildcard Post Ran")
-    res.redirect('./');
+    res.redirect('/');
 })
 
 
