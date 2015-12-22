@@ -7,6 +7,11 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var schedule = require('node-schedule');
 var Schema = mongoose.Schema;
+if(!process.env.PROD_STEAM_KEY){
+    var vars = require('../config/vars.json');
+}
+var steamKey = process.env.PROD_STEAM_KEY || vars.apiKey
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -54,7 +59,7 @@ function performRequest(endpoint, method, data, success){
   });
 }
 
-schedule.scheduleJob({hour: 20, minute: 50, dayOfWeek: 2}, function(){
+schedule.scheduleJob({hour: 20, minute: 52, dayOfWeek: 2}, function(){
   var heroEndpoint = "IEconDOTA2_570/GetHeroes/v0001/"
   performRequest(heroEndpoint, 'GET', {key: steamKey, language: 'en_us'})
 });

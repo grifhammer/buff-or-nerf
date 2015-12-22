@@ -1,15 +1,10 @@
 var express = require('express');
-if(!process.env.PROD_STEAM_KEY){
-    var vars = require('../config/vars.json');
-}
 var querystring = require('querystring');
 var https = require('https');
 var router = express.Router();
 
 var Hero = require('../models/heroes')
 var User = require('../models/users')
-
-var steamKey = process.env.PROD_STEAM_KEY || vars.apiKey
 
 // var mongoClient = require('mongodb').MongoClient;
 var db;
