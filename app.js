@@ -61,7 +61,8 @@ function performRequest(endpoint, method, data, success){
   });
 }
 
-schedule.scheduleJob({hour: 20, minute: 52, dayOfWeek: 2}, function(){
+schedule.scheduleJob({hour: 20, minute: 58, dayOfWeek: 2}, function(){
+  console.log("UPDATING HEROES!")
   var heroEndpoint = "IEconDOTA2_570/GetHeroes/v0001/"
   performRequest(heroEndpoint, 'GET', {key: steamKey, language: 'en_us'})
 });
