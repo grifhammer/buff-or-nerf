@@ -1,5 +1,5 @@
 var express = require('express');
-if(!process.env.STRIPE_KEY){
+if(!process.env.PROD_STEAM_KEY){
     var vars = require('../config/vars.json');
 }
 var querystring = require('querystring');
