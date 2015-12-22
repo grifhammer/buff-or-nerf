@@ -1,5 +1,7 @@
 var express = require('express');
-var vars = require('../config/vars.json');
+if(!process.env.STRIPE_KEY){
+    var vars = require('../config/vars.json');
+}
 var querystring = require('querystring');
 var https = require('https');
 var router = express.Router();
@@ -7,20 +9,10 @@ var router = express.Router();
 var Hero = require('../models/heroes')
 var User = require('../models/users')
 
+var steamKey = process.env.PROD_STEAM_KEY || vars.apiKey
+
 // var mongoClient = require('mongodb').MongoClient;
 var db;
-
-// var mainDbUrl;
-// if(process.env.PROD_MONGODB){
-//     mainDbUrl = process.env.PROD_MONGODB;
-// }else{
-//     mainDbUrl = 'mongodb://localhost:27017/buffornerf'
-// }
-
-
-// mongoClient.connect(mainDbUrl, function(error, database){
-//     db = database;
-// });
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -150,7 +142,7 @@ function performRequest(endpoint, method, data, success){
 
 router.get('/update', function (req, res, next){
     var heroEndpoint = "IEconDOTA2_570/GetHeroes/v0001/"
-    performRequest(heroEndpoint, 'GET', {key: vars.apiKey, language: 'en_us'})
+    performRequest(heroEndpoint, 'GET', {key: steamKey, language: 'en_us'})
     res.redirect('/');
 });
 
