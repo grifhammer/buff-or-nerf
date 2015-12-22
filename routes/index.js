@@ -27,17 +27,18 @@ router.get('/', function (req, res, next) {
                 res.send(err);
             }else{
                 if(docs.length ==0){
-                    res.redirect('/thanks');
+                    res.render('thanks');
+                }else {
+                    var numHeroes = docs.length;
+
+                    var thisIndex = Math.floor(Math.random() * numHeroes);
+
+                    var heroes = docs;
+
+                    var thisHero = heroes[thisIndex]
+
+                    res.render('index', {heroes: thisHero});
                 }
-                var numHeroes = docs.length;
-
-                var thisIndex = Math.floor(Math.random() * numHeroes);
-
-                var heroes = docs;
-
-                var thisHero = heroes[thisIndex]
-
-                res.render('index', {heroes: thisHero});
             }
         });
     });
@@ -78,7 +79,6 @@ function addVote(voteVal, req){
         if(error){
             console.log(error);
         }else{
-
             if(result){
                 var changeObj = {};
                 var voteType = voteVal + 'Votes';
@@ -110,10 +110,6 @@ function getIp(req){
 }
 
 
-router.get('/thanks', function (req, res, next){
-    res.render('thanks');
-});
-
 router.post('/buff', function (req, res, next){
     addVote('buff', req);
     res.redirect('/');
@@ -130,10 +126,13 @@ router.post('/nerf', function (req, res, next){
 });
 
 router.post('/new_user', function (req, res, next){
+    console.log('new user not working')
     var date = new Date();
     var ipAddr = getIp(req);
     var newIP = ipAddr + ":" + date.valueOf();
-    User.update({id: {$in: ipAddr}}, {$set: {id: newIP}}, {multi: true})
+    User.update({id: {$in: ipAddr}}, {$set: {id: newIP}}, {multi: true}, function (error, result){
+        console.log(result)
+    });
     res.redirect('/')
 });
 
