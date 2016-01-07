@@ -48,3 +48,11 @@ img{
 img.standing-img{
     width: 234px;
 }
+.hero-wrap{
+    height: 300px;
+    width: 275px;
+}
+
+.sort-select-box{
+    padding-bottom: 20px;
+}
