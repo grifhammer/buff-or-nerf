@@ -5,14 +5,25 @@
     <header>
         <% include header %>
     </header>
-    <div class="main-div">
-        <div class="sort-select-box">
-            <h3>Sorting Options</h3>
-            <div class="btn-group sort-by-btn-group" role="group">
-                <button type="button" class="btn btn-primary" data-sort-value="strong">Strongest</button>
-                <button type="button" class="btn btn-default" data-sort-value="weak">Weakest</button>
-                <button type="button" class="btn btn-default" data-sort-value="name">Alphabetical</button>
-                <button type="button" class="btn btn-default" data-sort-value="nameReverse">Reverse Alphabetical</button>
+    <div class="main-div container">
+        <div class="isotope-selectors">
+            <div class="sort-select-box">
+                <h3>Sorting Options</h3>
+                <div class="btn-group sort-by-btn-group" role="group">
+                    <button type="button" class="btn btn-primary" data-sort-value="strong">Strongest</button>
+                    <button type="button" class="btn btn-default" data-sort-value="weak">Weakest</button>
+                    <button type="button" class="btn btn-default" data-sort-value="name">Alphabetical</button>
+                    <button type="button" class="btn btn-default" data-sort-value="nameReverse">Reverse Alphabetical</button>
+                </div>
+            </div>
+            <div class="filter-select-box">
+                <h3>Filter Options</h3>
+                <div class="btn-group filter-btn-group" role="group">
+                    <button type="button" class="btn btn-primary" data-filter="*">Show All</button>
+                    <button type="button" class="btn btn-default" data-filter="buff">Buff</button>
+                    <button type="button" class="btn btn-default" data-filter="nerf">Nerf</button>
+                    <button type="button" class="btn btn-default" data-filter="balanced">Balanced</button>
+                </div>
             </div>
         </div>
         <div class='hero-grid'>

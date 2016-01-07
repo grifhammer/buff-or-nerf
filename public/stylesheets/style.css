@@ -54,5 +54,16 @@ img.standing-img{
 }
 
 .sort-select-box{
+    float: left;
+    width: 50%;
     padding-bottom: 20px;
+}
+
+.filter-select-box{
+    float: left;
+    width: 50%;
+    padding-bottom: 20px;
+}
+.isotope-selectors{
+    overflow: hidden;
 }
