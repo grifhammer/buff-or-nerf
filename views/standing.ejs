@@ -29,14 +29,14 @@
         <div class='hero-grid'>
             <% for(var i = 0; i < heroes.length; i++){ 
                 hero = heroes[i]%>
-                <div class="hero-wrap">
+                <div class="hero-wrap col-md-3 col-xs-4">
                     <img class="standing-img" src="<%=hero.img + 'full.png'%>">
                     <h2 class='hero-name'><%= hero.localized_name %></h2>
                     <% if(hero.totalVotes > 0){ %>
-                        <h2 class="buff" data-category="buff">Buff! Score: <span class='votes'><%= hero.totalVotes %></span></h2>
+                        <h2 class="buff" data-category="buff">Buff! Score: <span class='votes'><%= (hero.totalVotes) %></span></h2>
                     <%  }
                         else if(hero.totalVotes < 0){ %>
-                        <h2 class="nerf" data-category="nerf">Nerf! Score: <span class='votes'><%= hero.totalVotes %></span></h2>
+                        <h2 class="nerf" data-category="nerf">Nerf! Score: <span class='votes'><%= (hero.totalVotes)%></span></h2>
                     <%  }else{ 
                             if(hero.totalVotes == null){
                                 hero.totalVotes = 0
