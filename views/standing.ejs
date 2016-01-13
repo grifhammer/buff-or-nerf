@@ -29,7 +29,7 @@
         <div class='hero-grid'>
             <% for(var i = 0; i < heroes.length; i++){ 
                 hero = heroes[i]%>
-                <div class="hero-wrap col-md-3 col-xs-4">
+                <div class="hero-wrap col-md-3 col-sm-4 col-xs-6">
                     <img class="standing-img" src="<%=hero.img + 'full.png'%>">
                     <h2 class='hero-name'><%= hero.localized_name %></h2>
                     <% if(hero.totalVotes > 0){ %>
