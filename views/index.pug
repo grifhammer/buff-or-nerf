@@ -1,29 +1,31 @@
 
-<% include head %>
+include head.pug
 
 <body>
     <header>
-        <% include header %>
+       include header.pug
     </header>
     <div class="main-div">
         <h1>Buff or Nerf?</h1>
-        <img src="<%=heroes.img + 'vert.jpg'%>">
-        <h2><%= heroes.localized_name %></h2>
+        <img src="#{heroes.img + 'vert.jpg'}">
+        <h2>#{heroes.localized_name}</h2>
         <div class="voting-buttons">
             <form class="vote-button" action="./buff" method="post">
-                <input type="hidden" name="heroId" value="<%=heroes.id %>" />
+                <input type="hidden" name="heroId" value="#{heroes.id }" />
                 <input type="submit" class="btn btn-lg btn-success" value="Buff!">
             </form>
             <form class="vote-button" action="./balanced" method="post">
-                <input type="hidden" name="heroId" value="<%=heroes.id %>" />
+                <input type="hidden" name="heroId" value="#{heroes.id }" />
                 <input type="submit" class="btn btn-lg btn-primary" value="Balanced!">
             </form>
             <form class="vote-button" action="./nerf" method="post">
-                <input type="hidden" name="heroId" value="<%=heroes.id %>" />
+                <input type="hidden" name="heroId" value="#{heroes.id }" />
                 <input type="submit" class="btn btn-lg btn-danger" value="Nerf!">
             </form>
         </div>
     </div>
-    <footer><% include footer %></footer>
+    <footer>
+        include footer.pug
+    <footer>
 </body>
 </html>

@@ -1,9 +1,9 @@
 
-<% include head %>
+include head
 
 <body>
     <header>
-        <% include header %>
+         include header
     </header>
     <div class="main-div container">
         <div class="isotope-selectors">
@@ -27,27 +27,24 @@
             </div>
         </div>
         <div class='hero-grid'>
-            <% for(var i = 0; i < heroes.length; i++){ 
-                hero = heroes[i]%>
+            each hero in heroes 
                 <div class="hero-wrap col-md-3 col-sm-4 col-xs-6">
-                    <img class="standing-img" src="<%=hero.img + 'full.png'%>">
-                    <h2 class='hero-name'><%= hero.localized_name %></h2>
-                    <% if(hero.totalVotes > 0){ %>
-                        <h2 class="buff" data-category="buff">Buff! Score: <span class='votes'><%= (hero.totalVotes) %></span></h2>
-                    <%  }
-                        else if(hero.totalVotes < 0){ %>
-                        <h2 class="nerf" data-category="nerf">Nerf! Score: <span class='votes'><%= (hero.totalVotes)%></span></h2>
-                    <%  }else{ 
-                            if(hero.totalVotes == null){
-                                hero.totalVotes = 0
-                            } %>
-                        <h2 class="balanced" data-category="balanced">Balanced! Score: <span class='votes'><%= hero.totalVotes %></span></h2>
-                    <%  } %>
+                    <img class="standing-img" src="#{hero.img + 'full.png'}">
+                    <h2 class='hero-name'>#{ hero.localized_name }</h2>
+                    if hero.totalVotes > 0
+                        <h2 class="buff" data-category="buff">Buff! Score: <span class='votes'>#{ (hero.totalVotes) }</span></h2>
+                    else if hero.totalVotes < 0
+                        <h2 class="nerf" data-category="nerf">Nerf! Score: <span class='votes'>#{ (hero.totalVotes)}</span></h2>
+                    else
+                        if hero.totalVotes == null
+                            #{hero.totalVotes = 0}
+                        <h2 class="balanced" data-category="balanced">Balanced! Score: <span class='votes'>#{ hero.totalVotes }</span></h2>
                 </div>
-            <% } %>
         </div>
     </div>
-    <footer><% include footer %></footer>
+    <footer> 
+        include footer
+    </footer>
     <script src="javascripts/standing-sort.js"></script>
 </body>
 </html>
